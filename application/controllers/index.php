@@ -23,7 +23,7 @@ class Index extends MY_Controller implements SplSubject
     public function index()
     {
         $this->load->model('m_vod');
-        $vod = $this->m_vod->get('`name` as dd', 'id=17');
-        echo "<pre>";var_dump($vod);exit();
+        $this->m_vod->event = '打印';
+        $this->m_vod->notify(',hello world!');
     }
 }

@@ -99,7 +99,7 @@ class MY_Model extends CI_Model
 
     /*
      * 获取一条记录
-    */
+     */
     public function get($field = '*', $where = null, $orderby = null, $type = 'object')
     {
         $this->make_sql($field, $where, $orderby, 1);
@@ -113,7 +113,7 @@ class MY_Model extends CI_Model
 
     /*
      * 获取记录数
-    */
+     */
     public function count($where = null)
     {
         $data = $this->get('count(*) AS num', $where);
@@ -122,15 +122,9 @@ class MY_Model extends CI_Model
 
     /*
      * 判断记录是否存在
-    */
+     */
     public function exists($field, $value, $where = null)
     {
-        if($where) {
-            $sql = "SELECT `$field` FROM `$this->table` WHERE `$field`='$value' AND $where";
-        } else {
-            $sql = "SELECT `$field` FROM `$this->table` WHERE `$field`='$value'";
-        }
-
         $this->make_sql($field, $where);
 
         $this->db->where("$field='$value'", null, false);

@@ -23,7 +23,7 @@ class observer implements SplObserver
     public function update(SplSubject $subject, $args = '')
     {
         $event = $subject->event;
-        $subject_class = str_replace('M_', '', strtolower(get_class($subject)));
+        $subject_class = str_replace('m_', '', strtolower(get_class($subject)));
         $event_path = $this->event_path.$subject_class.'/';
 
         if(is_dir($event_path)) {
