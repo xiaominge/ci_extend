@@ -34,6 +34,10 @@ class MY_Model extends CI_Model
         }
     }
 
+    /**
+     * 设置查询
+     * 
+     */
     public function make_sql($field = '*', $where = null, $orderby = null, $limit = null)
     {
         if(is_array($field)) {
@@ -67,12 +71,16 @@ class MY_Model extends CI_Model
         }
     }
 
-    public function get_result($query, $method = 'result', $type = 'object')
+    /**
+     * 获取查询结果
+     * 
+     */
+    public function get_result($method = 'result', $type = 'object')
     {
         if(!in_array($type, array('object', 'array')) || !in_array($method, array('result', 'row'))) {
             return $this->error(1);
         }
-        
+        $query = $this->db->get();
         $query_method = $method.'_'.$type;
         return $query->$query_method();
     }
@@ -89,10 +97,10 @@ class MY_Model extends CI_Model
     public function select($field = '*', $where = null, $orderby = null, $limit = null, $type = 'object')
     {
         $this->make_sql($field, $where, $orderby, $limit);
-
-        $query = $this->db->get();
         
-        $data = $this->get_result($query, 'result', $type);
+        $data = $this->get_result('result', $type);
+
+        $this->explain();
 
         return $data;
     }
@@ -103,12 +111,25 @@ class MY_Model extends CI_Model
     public function get($field = '*', $where = null, $orderby = null, $type = 'object')
     {
         $this->make_sql($field, $where, $orderby, 1);
-
-        $query = $this->db->get();
         
-        $info = $this->get_result($query, 'row', $type);
+        $info = $this->get_result('row', $type);
+
+        $this->explain();
 
         return $info;
+    }
+
+    public function explain()
+    {
+        $explain = array();
+
+        $sql = $this->db->last_query();
+        
+        $query = $this->db->query('EXPLAIN '.$sql);
+
+        $explain = $query->row();
+        
+        console(array('sql' => $sql, 'explain' => $explain));
     }
 
     /*
@@ -134,6 +155,73 @@ class MY_Model extends CI_Model
         return $query->num_rows() > 0 ? true : false;
     }
 
+    /*
+     * 添加
+     */
+    public function insert($data)
+    {
+        $this->db->insert($this->table, $data);
+        return $this->db->insert_id();
+    }
+
+    /*
+     * 批量添加
+     */
+    public function insert_batch($data)
+    {
+        $this->db->insert_batch($this->table, $data);
+        return true;
+    }
+
+    /*
+     * 修改
+     */
+    public function update($data, $where)
+    {
+        if(is_numeric($where)) {
+            $where = array('id' => $where);
+        }
+
+        $this->db->update($this->table, $data, $where);
+
+        return true;
+    }
+
+    /*
+     * 删除
+     */
+    public function delete($where)
+    {
+        if(is_numeric($where)) {
+            $where = array('id' => $where);
+        }
+
+        if(!$where) {
+            return $this->error(1);
+        }
+
+        $this->db->delete($this->table, $where);
+
+        return true;
+    }
+
+    /*
+     * 错误信息
+     */
+    private function error($error_code = null)
+    {
+        switch($error_code) {
+            case self::parameter_error:
+                $this->error_msg = '参数错误';
+                break;
+            default:
+                $this->error_msg = '未知错误';
+                break;
+        }
+
+        return array('code' => $error_code, 'msg' => $this->error_msg);
+    }
+
     public function attach(SplObserver $observer)
     {
         $this->observers[] = $observer;
@@ -151,19 +239,5 @@ class MY_Model extends CI_Model
         foreach($this->observers as $observer) {
             $observer->update($this, $args);
         }
-    }
-
-    private function error($error_code = null)
-    {
-        switch($error_code) {
-            case self::parameter_error:
-                $this->error_msg = '参数错误';
-                break;
-            default:
-                $this->error_msg = '未知错误';
-                break;
-        }
-
-        return array('code' => $error_code, 'msg' => $this->error_msg);
     }
 }

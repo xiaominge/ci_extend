@@ -9,7 +9,7 @@ if(!defined('BASEPATH')) {
  * @author 徐亚坤
  */
 
-class event_m_vod_test
+class event_m_vod_tag
 {
     protected $model;
 
@@ -22,7 +22,7 @@ class event_m_vod_test
     {
         echo 'ok'.$str;
         ci()->load->model('m_tag');
-        $tag = ci()->m_tag->get('id,name', 'id=17');
+        $tag = ci()->m_tag->get('name');
         echo "<pre>";var_dump($tag);
     }
 }

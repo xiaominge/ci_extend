@@ -21,6 +21,25 @@ function ci()
     return $CI;
 }
 
+/**
+ * @author 徐亚坤
+ * sql 信息
+ */
+function console($var = null)
+{
+    static $firephp = null;
+    if(is_null($firephp)) {
+        require_once APPPATH.'libraries/lib/class/firephp.php';
+    }
+    if(class_exists('FirePHP', false)) {
+        $instance = FirePHP::getInstance(true);
+        $args = func_get_args();
+        call_user_func_array(array($instance, 'fb'), $args);
+    } else {
+        var_dump($var);
+    }
+}
+
 if (! function_exists('style')) {
     /**
      * 样式别名加载（支持批量加载，后期可拓展为自动多文件压缩合并）
