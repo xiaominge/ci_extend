@@ -105,6 +105,24 @@ class MY_Model extends CI_Model
         return $data;
     }
 
+    /**
+     * 关联查询
+     */
+    public function select_join($field = '*', $table = null, $where = null, $orderby = null, $limit = null, $type = 'object')
+    {
+        if($table) {
+            $this->table = $table;
+        }
+
+        $this->make_sql($field, $where, $orderby, $limit);
+        
+        $data = $this->get_result('result', $type);
+
+        $this->explain();
+
+        return $data;
+    }
+
     /*
      * 获取一条记录
      */

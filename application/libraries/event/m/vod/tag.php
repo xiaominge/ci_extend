@@ -22,7 +22,7 @@ class event_m_vod_tag
     {
         echo 'ok'.$str;
         ci()->load->model('m_tag');
-        $tag = ci()->m_tag->get('name');
-        echo "<pre>";var_dump($tag);
+        $tags = ci()->m_tag->select_join('user.*,tag.*', 'user,tag', 'tag.id=user.id');
+        echo "<pre>";print_r($tags);
     }
 }

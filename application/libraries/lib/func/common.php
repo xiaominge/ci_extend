@@ -32,9 +32,9 @@ function console($var = null)
         require_once APPPATH.'libraries/lib/class/firephp.php';
     }
     if(class_exists('FirePHP', false)) {
-        $instance = FirePHP::getInstance(true);
+        $firephp = FirePHP::getInstance(true);
         $args = func_get_args();
-        call_user_func_array(array($instance, 'fb'), $args);
+        call_user_func_array(array($firephp, 'fb'), $args);
     } else {
         var_dump($var);
     }
