@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 控制器基类
- * @author 徐亚坤
+ * @author 徐亚坤 http://www.jxwen.com/
  */
 
 class MY_Controller extends CI_Controller

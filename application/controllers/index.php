@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 首页控制器
- * @author 徐亚坤
+ * @author 徐亚坤 http://www.jxwen.com/
  */
 
 class Index extends MY_Controller implements SplSubject

@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 拓展配置
- * @author 徐亚坤
+ * @author 徐亚坤 http://www.jxwen.com/
  */
 
 // js文件别名

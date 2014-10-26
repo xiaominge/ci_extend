@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 模型基类
- * @author 徐亚坤
+ * @author 徐亚坤 http://www.jxwen.com/
  */
 
 class MY_Model extends CI_Model
@@ -123,7 +123,7 @@ class MY_Model extends CI_Model
         return $data;
     }
 
-    /*
+    /**
      * 获取一条记录
      */
     public function get($field = '*', $where = null, $orderby = null, $type = 'object')
@@ -137,6 +137,9 @@ class MY_Model extends CI_Model
         return $info;
     }
 
+    /**
+     * 获取 explain sql 信息
+     */
     public function explain()
     {
         $explain = array();
@@ -150,7 +153,7 @@ class MY_Model extends CI_Model
         console(array('sql' => $sql, 'explain' => $explain));
     }
 
-    /*
+    /**
      * 获取记录数
      */
     public function count($where = null)
@@ -159,7 +162,7 @@ class MY_Model extends CI_Model
         return $data->num;
     }
 
-    /*
+    /**
      * 判断记录是否存在
      */
     public function exists($field, $value, $where = null)
@@ -173,7 +176,7 @@ class MY_Model extends CI_Model
         return $query->num_rows() > 0 ? true : false;
     }
 
-    /*
+    /**
      * 添加
      */
     public function insert($data)
@@ -182,7 +185,7 @@ class MY_Model extends CI_Model
         return $this->db->insert_id();
     }
 
-    /*
+    /**
      * 批量添加
      */
     public function insert_batch($data)
@@ -191,7 +194,7 @@ class MY_Model extends CI_Model
         return true;
     }
 
-    /*
+    /**
      * 修改
      */
     public function update($data, $where)
@@ -205,7 +208,7 @@ class MY_Model extends CI_Model
         return true;
     }
 
-    /*
+    /**
      * 删除
      */
     public function delete($where)
@@ -223,7 +226,7 @@ class MY_Model extends CI_Model
         return true;
     }
 
-    /*
+    /**
      * 错误信息
      */
     private function error($error_code = null)
