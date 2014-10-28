@@ -232,7 +232,28 @@ function post($key, $clean = false)
 function model($model, $name = '', $db_conn = FALSE)
 {
     $CI =& get_instance();
-    $CI->load->model($model, $name, $db_conn);
+
+    if(!$CI->load->model($model, $name, $db_conn)) {
+
+        $path_and_file = explode('/', $model);
+
+        if(count($path_and_file) > 1) {
+            $filename = array_pop($path_and_file);
+            $path = implode('/', $path_and_file);
+        } else {
+            $filename = $model;
+            $path = '';
+        }
+
+        require_once APPPATH.'libraries/lib/class/create_model.php';
+
+        if(!create_model::instance($filename, $path)) {
+            exit("模型{$filename}无法创建！");
+        } else {
+            $CI->load->model($model, $name, $db_conn);
+        }
+
+    }
 }
 
 /**
