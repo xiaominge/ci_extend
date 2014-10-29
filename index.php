@@ -191,10 +191,6 @@ if (defined('ENVIRONMENT'))
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
 
-// 自己添加
-require_once APPPATH.'libraries/lib/class/observer.php';
-require_once APPPATH.'libraries/lib/func/common.php';
-
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
@@ -203,6 +199,11 @@ require_once APPPATH.'libraries/lib/func/common.php';
  * And away we go...
  *
  */
+
+// 自己添加
+require_once APPPATH.'libraries/lib/class/observer.php';
+require_once APPPATH.'libraries/lib/func/common.php';
+
 require_once BASEPATH.'core/CodeIgniter.php';
 
 
