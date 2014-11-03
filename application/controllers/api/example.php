@@ -22,6 +22,16 @@ class Example extends REST_Controller
     {
         // Construct our parent class
         parent::__construct();
+
+        // var_dump($this->response->lang);exit();
+        // if (is_array($this->response->lang))
+        // {
+        //     $this->load->language('application', $this->response->lang[0]);
+        // }
+        // else
+        // {
+        //     $this->load->language('application', $this->response->lang);
+        // }
         
         // Configure limits on our controller methods. Ensure
         // you have created the 'limits' table and enabled 'limits'
