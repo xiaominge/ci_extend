@@ -22,6 +22,12 @@ class Index extends MY_Controller implements SplSubject
      */
     public function index()
     {
+
+        // 载入类库
+        $this->load->library('sharp_template');
+        // 加载视图
+        $view = $this->sharp_template->parse('message');
+        exit($view);
         $this->load->model('m_vod');
 
         $this->m_vod->event = '打印';
