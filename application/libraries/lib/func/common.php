@@ -232,8 +232,8 @@ function post($key, $clean = false)
 function model($model, $name = '', $db_conn = FALSE)
 {
     $CI =& get_instance();
-
-    if(!$CI->load->model($model, $name, $db_conn)) {
+    $ret = $CI->load->model($model, $name, $db_conn);
+    if($ret === false) {
 
         $path_and_file = explode('/', $model);
 

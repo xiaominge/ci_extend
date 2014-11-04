@@ -28,11 +28,11 @@ class MY_Loader extends CI_Loader
 			foreach($model as $babe) {
 				$this->model($babe);
 			}
-			return;
+			return true;
 		}
 
 		if($model == '') {
-			return;
+			return true;
 		}
 
 		$path = '';
@@ -51,7 +51,7 @@ class MY_Loader extends CI_Loader
 		}
 
 		if(in_array($name, $this->_ci_models, TRUE)) {
-			return;
+			return true;
 		}
 
 		$CI =& get_instance();
@@ -84,7 +84,7 @@ class MY_Loader extends CI_Loader
 			$CI->$name = new $model();
 
 			$this->_ci_models[] = $name;
-			return;
+			return true;
 		}
 		// couldn't find the model
 		return false;
