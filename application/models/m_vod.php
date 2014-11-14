@@ -13,4 +13,10 @@ class M_vod extends MY_Model implements SplSubject
         parent::__construct();
     }
 
+    public function aa()
+    {
+        $this->event = '打印';
+        $this->notify(', hello world!');
+    }
+
 }

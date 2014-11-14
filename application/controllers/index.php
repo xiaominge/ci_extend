@@ -27,14 +27,11 @@ class Index extends MY_Controller implements SplSubject
         $this->load->library('sharp_template');
         // 加载视图
         $view = $this->sharp_template->parse('message');
+
+        require_once APPPATH.'libraries/lib/class/resource_controller.php';
+        $resource_controller = new R_Controller();
+        $resource_controller->index();
+
         exit($view);
-        $this->load->model('m_vod');
-
-        $this->m_vod->event = '打印';
-        $this->m_vod->notify(',hello world!');
-
-        model('m_user');
-        $user = $this->m_user->get('*', 'id=3');
-        echo "<pre>";print_r($user);exit();
     }
 }
