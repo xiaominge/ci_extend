@@ -11,12 +11,14 @@ if(!defined('BASEPATH')) {
 
 // js文件别名
 $config['jsAliases'] = array(
-    
+    'jquery-21' => '/public/js/jquery-2.1.0.min.js',
+    'jquery-bowser' => '/public/js/jquery.bowser.js',
+    'common' => '/public/js/common.js',
 );
 
 // css文件别名
 $config['cssAliases'] = array(
-
+    'font-awesome' => '/public/css/font-awesome.css',
 );
 
 
@@ -24,6 +26,10 @@ $config['cssAliases'] = array(
 $config['timezone'] = "Asia/Shanghai";
 // 静态文件目录
 $config['common_static'] = "/public/";
+// 图片上传允许格式
+$config['img_upload_ext'] = "gif|jpg|png|jpeg";
+// 文件上传目录
+$config['upload_path'] = "/uploads/";
 
 // 页面大小
 $config['page_size'] = "12";
