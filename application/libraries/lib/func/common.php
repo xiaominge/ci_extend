@@ -14,6 +14,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * @author 徐亚坤
+ * 调用的时候 $CI = ci();
  */
 function ci()
 {
@@ -264,6 +265,70 @@ function library($library = '', $params = NULL, $object_name = NULL)
 {
     $CI =& get_instance();
     $CI->load->library($library, $params, $object_name);
+}
+
+if (! function_exists('order_by')) {
+    /**
+     * 用于列表的排序标签
+     * @param  string $columnName 列名
+     * @param  string $default    是否默认排序列，up 默认升序 down 默认降序
+     * @return string             a 标签排序图标
+     */
+    function order_by($columnName = '', $default = null)
+    {
+        $url = get_url();
+        $query_arr = get_url_arr($url);
+
+        if(isset($query_arr['sort_up'])) {
+            $sortColumnName = $query_arr['sort_up'];
+        } elseif(isset($query_arr['sort_down'])) {
+            $sortColumnName = $query_arr['sort_down'];
+        } else {
+            $sortColumnName = false;
+        }
+
+        // URI 键
+        if(isset($query_arr['sort_up']) && $sortColumnName == $columnName) {
+            $orderType = 'sort_down';
+        } else {
+            $orderType = 'sort_up';
+        }
+
+        // 图标
+        if($sortColumnName == $columnName) {
+            $icon = isset($query_arr['sort_up']) ? 'sort-down' : 'sort-up';
+        } elseif($sortColumnName === false && $default == 'asc') {
+            $icon = 'sort-down';
+        } elseif($sortColumnName === false && $default == 'desc') {
+            $icon = 'sort-up';
+        } else {
+            $icon = 'sort';
+        }
+
+        $url_array = array();
+        if(isset($query_arr['sort_up'])) {
+            unset($query_arr['sort_up']);
+        }
+        if(isset($query_arr['sort_down'])) {
+            unset($query_arr['sort_down']);
+        }
+
+        $sort = array();
+        $sort[$orderType] = $columnName;
+
+        foreach($query_arr as $k => $v) {
+            $url_array[] = "{$k}={$v}";
+        }
+        foreach($sort as $k => $v) {
+            $url_array[] = "{$k}={$v}";
+        }
+        $url_str = implode('&', $url_array);
+        $play_url = current_url()."?".$url_str;
+
+        $a  = '<a href="'.$play_url.'"';
+        $a .= ' class="fa fa-'.$icon.'"></a>';
+        return $a;
+    }
 }
 
 
@@ -525,4 +590,84 @@ function new_unserialize($data)
         $ret = unserialize(stripslashes($data));
     }
     return $ret;
+}
+
+/**
+ * 安全过滤函数
+ *
+ * @param  $string
+ * @return string
+ */
+function safe_replace($string)
+{
+    $string = str_replace('%20', '', $string);
+    $string = str_replace('%27', '', $string);
+    $string = str_replace('%2527', '', $string);
+    $string = str_replace('*', '', $string);
+    $string = str_replace('"', '&quot;', $string);
+    $string = str_replace("'", '', $string);
+    $string = str_replace('"', '', $string);
+    $string = str_replace(';', '', $string);
+    $string = str_replace('<', '&lt;', $string);
+    $string = str_replace('>', '&gt;', $string);
+    $string = str_replace("{", '', $string);
+    $string = str_replace('}', '', $string);
+    $string = str_replace('\\', '', $string);
+    return $string;
+}
+
+/**
+ * 获取当前页面完整URL地址
+ */
+function get_url()
+{
+    if(isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443') {
+        $sys_protocal = 'https://';
+    } else {
+        $sys_protocal = 'http://';
+    }
+    if($_SERVER['PHP_SELF']) {
+        $php_self = safe_replace($_SERVER['PHP_SELF']);
+    } else {
+        $php_self = safe_replace($_SERVER['SCRIPT_NAME']);
+    }
+    $path_info = isset($_SERVER['PATH_INFO']) ? safe_replace($_SERVER['PATH_INFO']) : '';
+    $relate_url = isset($_SERVER['REQUEST_URI']) ? safe_replace($_SERVER['REQUEST_URI']) : $php_self.(isset($_SERVER['QUERY_STRING']) ? '?'.safe_replace($_SERVER['QUERY_STRING']) : $path_info);
+    return $sys_protocal.(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '').$relate_url;
+}
+
+function get_url_arr($url)
+{
+    $params = array();
+    $query = parse_url($url, PHP_URL_QUERY);
+
+    if($query) {
+        $queryParts = explode('&', $query);
+    }
+    if(isset($queryParts)) {
+        foreach ($queryParts as $param) {
+            $item = explode('=', $param);
+            $params[$item[0]] = $item[1];
+        }
+    }
+
+    return $params;
+}
+
+function random($length, $chars = '0123456789')
+{
+    $numeric = preg_match('/^[0-9]+$/', $chars) ? 1 : 0;
+    $seed = base_convert(md5(microtime().$_SERVER['DOCUMENT_ROOT']), 16, $numeric ? 10 : 35);
+    $seed = $numeric ? (str_replace('0', '', $seed).'012340567890') : ($seed.'zZ'.strtoupper($seed));
+    if($numeric) {
+        $hash = '';
+    } else {
+        $hash = chr(rand(1, 26) + rand(0, 1) * 32 + 64);
+        $length--;
+    }
+    $max = strlen($seed) - 1;
+    for($i = 0; $i < $length; $i++) {
+        $hash .= $seed{mt_rand(0, $max)};
+    }
+    return $hash;
 }
