@@ -46,16 +46,3 @@ class MY_Controller extends CI_Controller
         }
     }
 }
-
-/**
- * 资源控制器基类
- * @author 徐亚坤 http://www.jxwen.com/
- */
-
-class R_Controller extends MY_Controller
-{
-    public function __construct() {
-
-        parent::__construct();
-    }
-}

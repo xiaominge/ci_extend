@@ -14,7 +14,7 @@
 */
 
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
-require APPPATH.'libraries/lib/class/REST_Controller.php';
+require APPPATH.'libraries/lib/class/rest_controller.php';
 
 class Example extends REST_Controller
 {
