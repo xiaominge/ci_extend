@@ -33,7 +33,6 @@ class Index extends R_Controller implements SplSubject
         // 载入类库
         $this->load->library('sharp_template');
         // 加载视图
-        $view = $this->sharp_template->parse('message', array('output' => $output));
-        exit($view);
+        $this->sharp_template->parse('message', array('output' => $output));
     }
 }
