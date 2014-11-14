@@ -5,6 +5,10 @@
     <title>Welcome to <# block title #>CodeIgniter<# /block #></title>
 </head>
 <body>
-    <h1>Welcome to <# block title #>CodeIgniter<# /block #>!</h1>
+    <h1>
+        <# block body #>
+            CodeIgniter
+        <# /block #>
+    </h1>
 </body>
 </html>

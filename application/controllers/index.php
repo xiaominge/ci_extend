@@ -9,7 +9,9 @@ if(!defined('BASEPATH')) {
  * @author 徐亚坤 http://www.jxwen.com/
  */
 
-class Index extends MY_Controller implements SplSubject
+require_once APPPATH.'libraries/lib/class/resource_controller.php';
+
+class Index extends R_Controller implements SplSubject
 {
 
     public function __construct()
@@ -23,15 +25,15 @@ class Index extends MY_Controller implements SplSubject
      */
     public function index()
     {
+        parent::index();
+
+        $output = ob_get_contents();
+        ob_end_clean();
+
         // 载入类库
         $this->load->library('sharp_template');
         // 加载视图
-        $view = $this->sharp_template->parse('message');
-
-        require_once APPPATH.'libraries/lib/class/resource_controller.php';
-        $resource_controller = new R_Controller();
-        $resource_controller->index();
-
+        $view = $this->sharp_template->parse('message', array('output' => $output));
         exit($view);
     }
 }
