@@ -267,6 +267,29 @@ function library($library = '', $params = NULL, $object_name = NULL)
     $CI->load->library($library, $params, $object_name);
 }
 
+/**
+ * 获取配置信息
+ * @author 徐亚坤
+ */
+function config($key, $default = '', $file = '')
+{
+    $CI =& get_instance();
+
+    if($file) {
+        $CI->config->load($file);
+    }
+
+    $item = $CI->config->item($key);
+    
+    if($item) {
+        return $item;
+    } elseif(!$item && $default) {
+        return $default;
+    } elseif(!$item && !$default) {
+        return false;
+    }
+}
+
 if (! function_exists('order_by')) {
     /**
      * 用于列表的排序标签

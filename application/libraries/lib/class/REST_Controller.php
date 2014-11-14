@@ -13,7 +13,7 @@
  * @link			https://github.com/chriskacerguis/codeigniter-restserver
  * @version         3.0.0-pre
  */
-abstract class REST_Controller extends CI_Controller
+abstract class REST_Controller extends MY_Controller
 {
     /**
      * This defines the rest format.

@@ -19,6 +19,12 @@ $config['cssAliases'] = array(
 
 );
 
+
+// 时区设置
+$config['timezone'] = "Asia/Shanghai";
+// 静态文件目录
+$config['common_static'] = "/public/";
+
 // 页面大小
 $config['page_size'] = "12";
 // 项目名称

@@ -12,8 +12,9 @@ if(!defined('BASEPATH')) {
 class Index extends MY_Controller implements SplSubject
 {
 
-    function __construct()
+    public function __construct()
     {
+
         parent::__construct();
     }
 
@@ -22,7 +23,6 @@ class Index extends MY_Controller implements SplSubject
      */
     public function index()
     {
-
         // 载入类库
         $this->load->library('sharp_template');
         // 加载视图

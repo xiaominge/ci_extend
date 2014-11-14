@@ -5,21 +5,26 @@ if(!defined('BASEPATH')) {
 }
 
 /**
- * 控制器基类
+ * 自定义控制器基类
  * @author 徐亚坤 http://www.jxwen.com/
  */
 
 class MY_Controller extends CI_Controller
 {
 
-    function __construct() {
+    public function __construct() {
 
         parent::__construct();
-        header("content-type:text/html; charset=".$this->config->item('charset'));
+
         if($this instanceof SplSubject) {
             $observer = new observer('c');
             $this->attach($observer);
         }
+
+        $charset = config('charset', 'UTF-8');
+        header("content-type:text/html; charset=".$charset);
+        $timezone = config('timezone', 'Asia/Shanghai');
+        date_default_timezone_set($timezone);
     }
 
     public function attach(SplObserver $observer)
@@ -39,5 +44,18 @@ class MY_Controller extends CI_Controller
         foreach($this->observers as $observer) {
             $observer->update($this, $args);
         }
+    }
+}
+
+/**
+ * 资源控制器基类
+ * @author 徐亚坤 http://www.jxwen.com/
+ */
+
+class R_Controller extends MY_Controller
+{
+    public function __construct() {
+
+        parent::__construct();
     }
 }
