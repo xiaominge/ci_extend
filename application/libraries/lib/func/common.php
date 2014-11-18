@@ -226,6 +226,37 @@ function post($key, $clean = false)
     return $CI->input->post($key, $clean);
 }
 
+function get_request_method($default = 'get')
+{
+    if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD']) {
+        return strtolower($_SERVER['REQUEST_METHOD']);
+    }
+    return $default;
+}
+
+function except($keys)
+{
+    $keys = is_array($keys) ? $keys : func_get_args();
+
+    $results = input();
+
+    array_forget($results, $keys);
+
+    return $results;
+}
+
+function input($key = null, $default = null)
+{
+    $CI = ci();
+    $method = get_request_method();
+    if($method == 'get') {
+        $input = $CI->input->get();
+    } else {
+        $input = $CI->input->post();
+    }
+    return array_get($input, $key, $default);
+}
+
 /**
  * 载入模型文件的缩略写法
  * @author 徐亚坤
@@ -352,6 +383,25 @@ if (! function_exists('order_by')) {
         $a .= ' class="fa fa-'.$icon.'"></a>';
         return $a;
     }
+}
+
+function import($filepath, $base = null, $key = null)
+{
+    static $paths;
+
+    $keypath = $key ? $key.$filepath : $filepath;
+
+    if(!isset($paths[$keypath])) {
+        if(is_null($base)) {
+            $base = APPPATH.'libraries/lib/';
+        }
+        $parts = explode('.', $filepath);
+        array_pop($parts);
+        $path = str_replace('.', DS, $filepath);
+        $paths[$keypath] = include $base.$path.'.php';
+    }
+    
+    return $paths[$keypath];
 }
 
 
@@ -693,4 +743,93 @@ function random($length, $chars = '0123456789')
         $hash .= $seed{mt_rand(0, $max)};
     }
     return $hash;
+}
+
+if ( ! function_exists('value'))
+{
+    /**
+     * Return the default value of the given value.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
+    function value($value)
+    {
+        return $value instanceof Closure ? $value() : $value;
+    }
+}
+
+if ( ! function_exists('array_get'))
+{
+    /**
+     * Get an item from an array using "dot" notation.
+     *
+     * @param  array   $array
+     * @param  string  $key
+     * @param  mixed   $default
+     * @return mixed
+     */
+    function array_get($array, $key, $default = null)
+    {
+        if (is_null($key)) return $array;
+
+        if (isset($array[$key])) return $array[$key];
+
+        foreach (explode('.', $key) as $segment)
+        {
+            if ( ! is_array($array) || ! array_key_exists($segment, $array))
+            {
+                return value($default);
+            }
+
+            $array = $array[$segment];
+        }
+
+        return $array;
+    }
+}
+
+if ( ! function_exists('array_only'))
+{
+    /**
+     * Get a subset of the items from the given array.
+     *
+     * @param  array  $array
+     * @param  array  $keys
+     * @return array
+     */
+    function array_only($array, $keys)
+    {
+        return array_intersect_key($array, array_flip((array) $keys));
+    }
+}
+
+if ( ! function_exists('array_forget'))
+{
+    /**
+     * Remove one or many array items from a given array using "dot" notation.
+     *
+     * @param  array        $array
+     * @param  array|string $keys
+     * @return void
+     */
+    function array_forget(&$array, $keys)
+    {
+        foreach ((array) $keys as $key)
+        {
+            $parts = explode('.', $key);
+
+            while (count($parts) > 1)
+            {
+                $part = array_shift($parts);
+
+                if (isset($array[$part]) && is_array($array[$part]))
+                {
+                    $array =& $array[$part];
+                }
+            }
+
+            unset($array[array_shift($parts)]);
+        }
+    }
 }

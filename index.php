@@ -201,8 +201,9 @@ if (defined('ENVIRONMENT'))
  */
 
 // 自己添加
-require_once APPPATH.'libraries/lib/class/observer.php';
+define("DS", DIRECTORY_SEPARATOR);
 require_once APPPATH.'libraries/lib/func/common.php';
+import('class.observer');
 
 require_once BASEPATH.'core/CodeIgniter.php';
 
