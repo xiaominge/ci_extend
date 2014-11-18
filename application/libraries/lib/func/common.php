@@ -234,29 +234,6 @@ function get_request_method($default = 'get')
     return $default;
 }
 
-function except($keys)
-{
-    $keys = is_array($keys) ? $keys : func_get_args();
-
-    $results = input();
-
-    array_forget($results, $keys);
-
-    return $results;
-}
-
-function input($key = null, $default = null)
-{
-    $CI = ci();
-    $method = get_request_method();
-    if($method == 'get') {
-        $input = $CI->input->get();
-    } else {
-        $input = $CI->input->post();
-    }
-    return array_get($input, $key, $default);
-}
-
 /**
  * 载入模型文件的缩略写法
  * @author 徐亚坤

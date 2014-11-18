@@ -30,6 +30,10 @@ class Index extends R_Controller implements SplSubject
         $output = ob_get_contents();
         ob_end_clean();
 
+        $input = $this->input->except('name');
+        echo "<pre>";
+        print_r($input);exit();
+
         // 载入类库
         $this->load->library('sharp_template');
         // 加载视图
