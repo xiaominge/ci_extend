@@ -226,14 +226,6 @@ function post($key, $clean = false)
     return $CI->input->post($key, $clean);
 }
 
-function get_request_method($default = 'get')
-{
-    if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD']) {
-        return strtolower($_SERVER['REQUEST_METHOD']);
-    }
-    return $default;
-}
-
 /**
  * 载入模型文件的缩略写法
  * @author 徐亚坤
@@ -809,4 +801,12 @@ if ( ! function_exists('array_forget'))
             unset($array[array_shift($parts)]);
         }
     }
+}
+
+function get_request_method($default = 'get')
+{
+    if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD']) {
+        return strtolower($_SERVER['REQUEST_METHOD']);
+    }
+    return $default;
 }
