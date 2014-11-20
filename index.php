@@ -202,7 +202,26 @@ if (defined('ENVIRONMENT'))
 
 // 自己添加
 define("DS", DIRECTORY_SEPARATOR);
-require_once APPPATH.'libraries/lib/func/common.php';
+
+function import($filepath, $base = null, $key = null)
+{
+    static $paths;
+    $keypath = $key ? $key.$filepath : $filepath;
+
+    if(!isset($paths[$keypath])) {
+        if(is_null($base)) {
+            $base = APPPATH.'libraries/lib/';
+        }
+        $parts = explode('.', $filepath);
+        array_pop($parts);
+        $path = str_replace('.', DS, $filepath);
+        $paths[$keypath] = include $base.$path.'.php';
+    }
+    
+    return $paths[$keypath];
+}
+
+import('func.common');
 import('class.observer');
 
 require_once BASEPATH.'core/CodeIgniter.php';

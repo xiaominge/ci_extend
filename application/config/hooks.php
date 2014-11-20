@@ -10,5 +10,23 @@
 |
 */
 
+//登录验证
+$hook['post_controller_constructor'] = array(
+        'class'    => 'Admin_hook',
+        'function' => 'aoto_verify',
+        'filename' => 'admin_hook.php',
+        'filepath' => 'hooks',
+        'params'   => '',
+);
+
+//默认开启SESSION
+$hook['pre_system'] = array(
+        'class'    => '',
+        'function' => 'session_start',
+        'filename' => '',
+        'filepath' => '',
+        'params'   => '',
+);
+
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

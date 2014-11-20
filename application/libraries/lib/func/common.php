@@ -88,10 +88,8 @@ if (! function_exists('script')) {
 if(!function_exists("error_redirct")) {
     function error_redirct($url = "", $contents = "操作失败", $time = 3)
     {
-        
         $ci_obj = &get_instance();
         if($url != "") {
-            //print_r($_SERVER);
             $url = site_url($url);
         } else {
             $url = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url();
@@ -100,7 +98,9 @@ if(!function_exists("error_redirct")) {
         $data['time'] = $time;
         $data['type'] = "error";
         $data['contents'] = $contents;
+
         $ci_obj->load->view("common/redirect", $data);
+
         $ci_obj->output->_display($ci_obj->output->get_output());
         die();
     }
@@ -230,7 +230,7 @@ function post($key, $clean = false)
  * 载入模型文件的缩略写法
  * @author 徐亚坤
  */
-function model($model, $name = '', $db_conn = FALSE)
+function model($model, $name = '', $db_conn = FALSE, $primary = 'id')
 {
     $CI =& get_instance();
     $ret = $CI->load->model($model, $name, $db_conn);
@@ -246,9 +246,9 @@ function model($model, $name = '', $db_conn = FALSE)
             $path = '';
         }
 
-        require_once APPPATH.'libraries/lib/class/create_model.php';
+        import('class.create_model');
 
-        if(!create_model::instance($filename, $path)) {
+        if(!create_model::instance($filename, $path, $primary)) {
             exit("模型{$filename}无法创建！");
         } else {
             $CI->load->model($model, $name, $db_conn);
@@ -352,25 +352,6 @@ if (! function_exists('order_by')) {
         $a .= ' class="fa fa-'.$icon.'"></a>';
         return $a;
     }
-}
-
-function import($filepath, $base = null, $key = null)
-{
-    static $paths;
-
-    $keypath = $key ? $key.$filepath : $filepath;
-
-    if(!isset($paths[$keypath])) {
-        if(is_null($base)) {
-            $base = APPPATH.'libraries/lib/';
-        }
-        $parts = explode('.', $filepath);
-        array_pop($parts);
-        $path = str_replace('.', DS, $filepath);
-        $paths[$keypath] = include $base.$path.'.php';
-    }
-    
-    return $paths[$keypath];
 }
 
 

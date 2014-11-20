@@ -14,11 +14,19 @@ $config['jsAliases'] = array(
     'jquery-21' => '/public/js/jquery-2.1.0.min.js',
     'jquery-bowser' => '/public/js/jquery.bowser.js',
     'common' => '/public/js/common.js',
+
+    'ckform' => '/public/js/ckform.js',
+    'bootstrap' => '/public/js/bootstrap.min.js',
 );
 
 // css文件别名
 $config['cssAliases'] = array(
     'font-awesome' => '/public/css/font-awesome.css',
+
+    'bootstrap-responsive' => '/public/css/bootstrap-responsive.min.css',
+    'bootstrap' => '/public/css/bootstrap.min.css',
+    'style' => '/public/css/style.css',
+    'signin' => '/public/css/signin.css',
 );
 
 

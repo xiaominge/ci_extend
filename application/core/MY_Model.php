@@ -22,6 +22,12 @@ class MY_Model extends CI_Model
      */
     protected $table = '';
 
+    /**
+     * 数据库表主键
+     * @var string
+     */
+    protected $_primary = '';
+
     protected $observers = array();
     
     public function __construct()
@@ -169,7 +175,7 @@ class MY_Model extends CI_Model
     {
         $this->make_sql($field, $where);
 
-        $this->db->where("$field='$value'", null, false);
+        $this->db->where("{$field}='{$value}'", null, false);
 
         $query = $this->db->get();
 
@@ -200,9 +206,29 @@ class MY_Model extends CI_Model
     public function update($data, $where)
     {
         if(is_numeric($where)) {
-            $where = array('id' => $where);
+            $where = array($this->_primary => $where);
         }
 
+        $this->db->update($this->table, $data, $where);
+
+        return true;
+    }
+
+    /*
+     * 回收
+     * 软删除
+     */
+    public function destroy($where)
+    {
+        if(is_numeric($where)) {
+            $where = array($this->_primary => $where);
+        }
+
+        if(!$where) {
+            return $this->error(1);
+        }
+
+        $data = array('status' => 3);
         $this->db->update($this->table, $data, $where);
 
         return true;
@@ -214,7 +240,7 @@ class MY_Model extends CI_Model
     public function delete($where)
     {
         if(is_numeric($where)) {
-            $where = array('id' => $where);
+            $where = array($this->_primary => $where);
         }
 
         if(!$where) {
