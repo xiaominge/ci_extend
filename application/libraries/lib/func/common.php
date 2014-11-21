@@ -165,34 +165,6 @@ if(!function_exists("password")) {
 }
 
 /**
- * 创建目录
- * @author 徐亚坤
- * @param string $path 路径
- * @param string $mode 属性
- * @return string 如果已经存在则返回true，否则为flase
- */
-function dir_create($path, $mode = 0777)
-{
-    if(is_dir($path) || $path == '') {
-        return true;
-    }
-
-    $path = dir_path($path);
-    $path = str_replace(str_replace('\\', '/', FCPATH), '', $path);
-    $temp = array_filter(explode('/', $path));
-    $cur_dir = FCPATH;
-
-    foreach($temp as $name) {
-        $cur_dir .= $name . '/';
-        if (@is_dir($cur_dir)) continue;
-        @mkdir($cur_dir, 0777, true);
-        @chmod($cur_dir, 0777);
-    }
-    
-    return is_dir(FCPATH.$path);
-}
-
-/**
  * 载入视图的缩略写法
  * @author 徐亚坤
  */
@@ -433,6 +405,37 @@ function dir_path($path)
         $path = $path . '/';
     }
     return $path;
+}
+
+/**
+ * 创建目录
+ * @author 徐亚坤
+ * @param string $path 路径
+ * @param string $mode 属性
+ * @return string 如果已经存在则返回true，否则为flase
+ */
+function dir_create($path, $root_dir, $mode = 0777)
+{
+    if(is_dir($path)) {
+        @chmod($path, 0777);
+    }
+    if(is_dir($path) || $path == '') {
+        return true;
+    }
+
+    $path = dir_path($path);
+    $path = str_replace(str_replace('\\', '/', $root_dir), '', $path);
+    $temp = array_filter(explode('/', $path));
+    $cur_dir = $root_dir;
+
+    foreach($temp as $name) {
+        $cur_dir .= $name . '/';
+        if (@is_dir($cur_dir)) continue;
+        @mkdir($cur_dir, 0777, true);
+        @chmod($cur_dir, 0777);
+    }
+    
+    return is_dir($root_dir.$path);
 }
 
 /**
