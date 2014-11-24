@@ -21,7 +21,7 @@ $config['admin_notauth_method'] = array('login');
 // 不需要验证的控制器
 $config['admin_notauth_controller'] = array();
 // 不需要验证的目录
-$config['admin_notauth_directory'] = array('');
+$config['admin_notauth_directory'] = array('', 'api');
 
 
 /* End of file admin.php */

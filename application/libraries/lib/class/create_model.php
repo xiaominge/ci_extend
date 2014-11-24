@@ -36,18 +36,14 @@ class M_[directory]_[table_name] extends MY_Model implements SplSubject
         if($path) {
             $tablename = str_replace('m_'.$path.'_', '', $filename);
             $out = str_replace(array('[table_name]', '[_primary]', '[directory]'), array($tablename, $primary, $path), self::$tpl);
+            $filename = APPPATH."models/{$path}/{$filename}.php";
         } else {
             $tablename = str_replace('m_', '', $filename);
             $out = str_replace(array('[table_name]', '[_primary]', '[directory]', 'M_'), array($tablename, $primary, $path, 'M'), self::$tpl);
-        }
-        
-        if($path) {
-            $filename = APPPATH."models/{$path}/{$filename}.php";
-        } else {
             $filename = APPPATH."models/{$filename}.php";
         }
         
         file_put_contents($filename, $out) or exit("can't write $filename");
         return true;
-    } 
+    }
 }

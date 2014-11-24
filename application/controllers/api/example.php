@@ -14,7 +14,8 @@
 */
 
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
-require APPPATH.'libraries/lib/class/rest_controller.php';
+
+import('class.rest_controller');
 
 class Example extends REST_Controller
 {
@@ -70,7 +71,7 @@ class Example extends REST_Controller
     
     function user_post()
     {
-        //$this->some_model->updateUser( $this->get('id') );
+        // $this->some_model->updateUser( $this->get('id') );
         $message = array('id' => $this->get('id'), 'name' => $this->post('name'), 'email' => $this->post('email'), 'message' => 'ADDED!');
         
         $this->response($message, 200); // 200 being the HTTP response code

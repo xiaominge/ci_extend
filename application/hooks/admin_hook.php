@@ -23,6 +23,9 @@ class Admin_hook
 		$class = $ci_obj->router->fetch_class();
 		// 目录
 		$directory = $ci_obj->router->fetch_directory();
+        if($directory) {
+            $directory = trim($directory, '/');
+        }
 		// 开启认证
 		if($ci_obj->config->item('admin_auth_on')) {
 			// 若为实时认证
