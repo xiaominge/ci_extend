@@ -1,5 +1,7 @@
 <?php
 
+// use Event\M\Vod;
+
 if(!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }

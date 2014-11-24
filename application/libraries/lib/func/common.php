@@ -424,8 +424,11 @@ function dir_create($path, $root_dir, $mode = 0777)
     }
 
     $path = dir_path($path);
+    // 截取不包括根目录的路径
     $path = str_replace(str_replace('\\', '/', $root_dir), '', $path);
+    // 路径数组
     $temp = array_filter(explode('/', $path));
+    // 当前目录
     $cur_dir = $root_dir;
 
     foreach($temp as $name) {
@@ -434,7 +437,6 @@ function dir_create($path, $root_dir, $mode = 0777)
         @mkdir($cur_dir, 0777, true);
         @chmod($cur_dir, 0777);
     }
-    
     return is_dir($root_dir.$path);
 }
 

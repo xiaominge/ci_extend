@@ -16,7 +16,6 @@ class Index extends R_Controller implements SplSubject
 
     public function __construct()
     {
-
         parent::__construct();
     }
 
@@ -25,6 +24,7 @@ class Index extends R_Controller implements SplSubject
      */
     public function index()
     {
+
         parent::index();
 
         $output = ob_get_contents();

@@ -19,12 +19,16 @@ class Admin_hook
 		$ci_obj =& get_instance();
 		// 方法
 		$method = $ci_obj->router->fetch_method();
+		// 控制器
+		$class = $ci_obj->router->fetch_class();
+		// 目录
+		$directory = $ci_obj->router->fetch_directory();
 		// 开启认证
 		if($ci_obj->config->item('admin_auth_on')) {
 			// 若为实时认证
 			if($ci_obj->config->item('admin_auth_type') == 2) {
 				// 方法需要验证
-				if(!in_array($method, $ci_obj->config->item('admin_notauth_method'))) {
+				if(!in_array($directory, $ci_obj->config->item('admin_notauth_directory')) && !in_array($class, $ci_obj->config->item('admin_notauth_controller')) && !in_array($method, $ci_obj->config->item('admin_notauth_method'))) {
 					if(!isset($_SESSION[$ci_obj->config->item('admin_auth_key')]["info"]["id"])) {
 						error_redirct($ci_obj->config->item('admin_auth_gateway'), '您还没有登录');
 					}
