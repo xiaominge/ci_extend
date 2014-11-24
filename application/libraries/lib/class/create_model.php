@@ -20,10 +20,11 @@ if(!defined('BASEPATH')) {
  * 模型
  * @author 自动生成
  */
-class M_[table_name] extends MY_Model implements SplSubject
+class M_[directory]_[table_name] extends MY_Model implements SplSubject
 {
     public function __construct()
     {
+        \$this->directory = '[directory]';
         \$this->table = '[table_name]';
         \$this->_primary = '[_primary]';
         parent::__construct();
@@ -32,8 +33,14 @@ class M_[table_name] extends MY_Model implements SplSubject
 
     public static function instance($filename, $path = '', $primary)
     {
-        $tablename = preg_replace('/^m_/i', '', $filename);
-        $out = str_replace(array('[table_name]', '[_primary]'), array($tablename, $primary), self::$tpl);
+        if($path) {
+            $tablename = str_replace('m_'.$path.'_', '', $filename);
+            $out = str_replace(array('[table_name]', '[_primary]', '[directory]'), array($tablename, $primary, $path), self::$tpl);
+        } else {
+            $tablename = str_replace('m_', '', $filename);
+            $out = str_replace(array('[table_name]', '[_primary]', '[directory]', 'M_'), array($tablename, $primary, $path, 'M'), self::$tpl);
+        }
+        
         if($path) {
             $filename = APPPATH."models/{$path}/{$filename}.php";
         } else {

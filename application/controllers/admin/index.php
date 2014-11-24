@@ -41,12 +41,12 @@ class Index extends MY_Controller
      */
     public function login()
     {
-        $this->load->model("admin/m_admin");
+        $this->load->model("admin/m_admin_admin");
         $username = $this->input->all('username');
         $password = $this->input->all('password');
 
         if($username && $password) {
-            $return = $this->m_admin->check_user($username, $password);
+            $return = $this->m_admin_admin->check_user($username, $password);
             if($return === TRUE) {
                 success_redirct($this->config->item('admin_default_index'), "登录成功！");
             } else {

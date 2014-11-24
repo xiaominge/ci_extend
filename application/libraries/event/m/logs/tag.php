@@ -1,5 +1,7 @@
 <?php
 
+namespace Event\M\Logs;
+
 if(!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
@@ -9,7 +11,7 @@ if(!defined('BASEPATH')) {
  * @author 徐亚坤
  */
 
-class event_m_vod_tag
+class Tag
 {
     protected $model;
 
@@ -18,8 +20,8 @@ class event_m_vod_tag
         $this->model = $model;
     }
 
-    public function 打印($str = '')
+    public function testworld($str = '')
     {
-        echo 'ok'.$str;
+        echo ' world!';
     }
 }

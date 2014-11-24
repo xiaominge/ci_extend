@@ -12,7 +12,7 @@ class Admin extends R_Controller implements SplSubject
 
     public function __construct()
     {
-        $this->model = 'm_admin';
+        $this->model = 'm_admin_admin';
         $this->resource = 'admin';
         $this->resourceName = '管理员';
 

@@ -11,11 +11,12 @@ if(!defined('BASEPATH')) {
 
 import('class.resource_model');
 
-class M_admin extends R_Model implements SplSubject
+class M_admin_admin extends R_Model implements SplSubject
 {
     
     public function __construct()
     {
+        $this->directory = 'admin';
         $this->table = 'admin';
         $this->_primary = 'id';
         parent::__construct();

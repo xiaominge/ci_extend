@@ -20,7 +20,19 @@ class MY_Model extends CI_Model
      * 数据库表名称
      * @var string
      */
-    protected $table = '';
+    public $table = '';
+
+    /**
+     * 目录
+     * @var string
+     */
+    public $directory = '';
+
+    /**
+     * 模型事件
+     * @var string
+     */
+    public $event = '';
 
     /**
      * 数据库表主键
