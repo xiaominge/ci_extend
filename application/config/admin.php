@@ -19,7 +19,7 @@ $config['admin_default_index'] = 'admin/index';
 // 不需要验证的方法
 $config['admin_notauth_method'] = array('login');
 // 不需要验证的控制器
-$config['admin_notauth_controller'] = array();
+$config['admin_notauth_controller'] = array('upload');
 // 不需要验证的目录
 $config['admin_notauth_directory'] = array('', 'api');
 
