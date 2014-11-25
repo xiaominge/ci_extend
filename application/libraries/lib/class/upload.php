@@ -8,7 +8,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 上传类
- * @author 徐亚坤 http://www.jxwen.com/
+ * @author 徐亚坤 hdyakun@sina.com
  */
 
 class upload

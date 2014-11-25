@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 首页控制器
- * @author 徐亚坤 http://www.jxwen.com/
+ * @author 徐亚坤 hdyakun@sina.com
  */
 
 require_once APPPATH.'libraries/lib/class/resource_controller.php';

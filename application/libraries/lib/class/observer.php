@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 观察者实现类
- * @author 徐亚坤 http://www.jxwen.com/
+ * @author 徐亚坤 hdyakun@sina.com
  */
 
 class observer implements SplObserver

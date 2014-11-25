@@ -108,7 +108,8 @@ class Example extends REST_Controller
 
 	public function send_post()
 	{
-		var_dump($this->request->body);
+        $ret = array('body' => $this->request->body, 'msg' => 'ok');
+		$this->response($ret, 200);
 	}
 
 

@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 资源控制器基类
- * @author 徐亚坤 http://www.jxwen.com/
+ * @author 徐亚坤 hdyakun@sina.com
  */
 
 class R_Controller extends MY_Controller

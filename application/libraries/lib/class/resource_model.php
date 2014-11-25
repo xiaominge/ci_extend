@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 资源模型基类
- * @author 徐亚坤 http://www.jxwen.com/
+ * @author 徐亚坤 hdyakun@sina.com
  */
 
 class R_Model extends MY_Model

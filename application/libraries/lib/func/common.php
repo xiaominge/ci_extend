@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 函数库
- * @author 徐亚坤 http://www.jxwen.com/
+ * @author 徐亚坤 hdyakun@sina.com
  */
 
 /* ---------------------辅助函数--------------------------------- */

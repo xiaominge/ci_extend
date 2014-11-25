@@ -6,7 +6,7 @@ if(!defined('BASEPATH')) {
 
 /**
  * 自定义模型基类
- * @author 徐亚坤 http://www.jxwen.com/
+ * @author 徐亚坤 hdyakun@sina.com
  */
 
 class MY_Model extends CI_Model
