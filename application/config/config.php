@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.ci.com/';
+$config['base_url']	= 'http://localhost/workspace/ci_extend/';
 
 /*
 |--------------------------------------------------------------------------

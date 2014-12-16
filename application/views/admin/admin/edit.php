@@ -1,5 +1,5 @@
 <?php $this->load->view("admin/common/header");?>
-<script language="javascript" type="text/javascript" src="/public/assets/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo config('base_url').config('common_static').'assets/My97DatePicker/WdatePicker.js'; ?>"></script>
     <style type="text/css">
         body {
             padding-bottom: 40px;

@@ -37,7 +37,7 @@ $config['common_static'] = "/public/";
 // 图片上传允许格式
 $config['img_upload_ext'] = "gif|jpg|png|jpeg";
 // 图片访问域名
-$config['img_domain'] = "http://www.ci.com/";
+$config['img_domain'] = "http://localhost/workspace/ci_extend/";
 // 图片域名指向目录
 $config['img_domain_path'] = FCPATH;
 // 文件上传目录
