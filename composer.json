@@ -1,0 +1,11 @@
+{
+    "require": {
+        "illuminate/database": "*"
+    },
+
+    "autoload": {
+        "classmap": [
+          "application/models/Eloquent"
+        ]
+    }
+}

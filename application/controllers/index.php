@@ -8,10 +8,7 @@ if(!defined('BASEPATH')) {
  * 首页控制器
  * @author 徐亚坤 hdyakun@sina.com
  */
-
-require_once APPPATH.'libraries/lib/class/resource_controller.php';
-
-class Index extends R_Controller implements SplSubject
+class Index extends MY_Controller implements SplSubject
 {
 
     public function __construct()
@@ -24,12 +21,7 @@ class Index extends R_Controller implements SplSubject
      */
     public function index()
     {
-        echo "<pre>";
-        model('front/m_front_logs');
-        $this->m_front_logs->event = 'testhello';
-        $this->m_front_logs->notify();
-        model('m_logs');
-        $this->m_logs->event = 'testworld';
-        $this->m_logs->notify();
+        $data['article'] = Article::first();
+        $this->load->view('article/index', $data);
     }
 }

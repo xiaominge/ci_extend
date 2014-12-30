@@ -64,6 +64,17 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+$db['eloquent'] = [
+  'driver'    => 'mysql',
+  'host'      => 'localhost',
+  'database'  => 'ci_extend',
+  'username'  => 'root',
+  'password'  => 'root',
+  'charset'   => 'utf8',
+  'collation' => 'utf8_general_ci',
+  'prefix'    => ''
+];
+
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

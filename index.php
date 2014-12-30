@@ -223,9 +223,9 @@ function import($filepath, $base = null, $key = null)
 
 import('func.common');
 import('class.observer');
+require './composer.php';
 
 require_once BASEPATH.'core/CodeIgniter.php';
-
 
 /* End of file index.php */
 /* Location: ./index.php */
